@@ -1,0 +1,51 @@
+name: Test Suggestions Mode
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-suggestions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install nsepython pandas numpy yfinance requests
+
+      - name: Run app.py in suggestions mode
+        run: python app.py
+        env:
+          MODE: suggestions
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+
+      - name: Display CSV contents
+        run: |
+          echo "=== Active Suggestions File ==="
+          cat active_suggestions.csv
+          echo ""
+          echo "=== History File ==="
+          cat all_history.csv
+          echo ""
+          echo "=== File Sizes ==="
+          ls -la *.csv
+
+      - name: Commit and push if changes
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add *.csv
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Test suggestions mode results"
+            git push origin main
+          fi
