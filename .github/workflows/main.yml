@@ -35,7 +35,6 @@ jobs:
             echo "mode=performance" >> $GITHUB_OUTPUT
           else
             echo "mode=manual" >> $GITHUB_OUTPUT
-          fi
 
       - name: Run app.py
         run: python app.py
@@ -43,3 +42,13 @@ jobs:
           MODE: ${{ steps.setmode.outputs.mode }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
+
+      - name: Commit and push CSVs
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add active_suggestions.csv all_history.csv || echo "No files to add"
+          git commit -m "Update CSVs from workflow" || echo "No changes to commit"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
