@@ -1,0 +1,45 @@
+name: Options Bot Scheduler
+
+on:
+  schedule:
+    # 9 PM IST → 15:30 UTC → generate suggestions
+    - cron: '30 15 * * *'
+    # 6 PM IST → 12:30 UTC → performance check
+    - cron: '30 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install nsepython pandas numpy yfinance requests
+
+      - name: Determine MODE based on cron time
+        id: setmode
+        run: |
+          CURRENT_HOUR_UTC=$(date -u +'%H')
+          if [ "$CURRENT_HOUR_UTC" -eq 15 ]; then
+            echo "mode=suggestions" >> $GITHUB_OUTPUT
+          elif [ "$CURRENT_HOUR_UTC" -eq 12 ]; then
+            echo "mode=performance" >> $GITHUB_OUTPUT
+          else
+            echo "mode=manual" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run app.py
+        run: python app.py
+        env:
+          MODE: ${{ steps.setmode.outputs.mode }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
