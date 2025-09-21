@@ -35,6 +35,7 @@ jobs:
             echo "mode=performance" >> $GITHUB_OUTPUT
           else
             echo "mode=manual" >> $GITHUB_OUTPUT
+          fi
 
       - name: Run app.py
         run: python app.py
