@@ -30,23 +30,113 @@ RSI_THRESHOLD = 50
 STRICT_TREND_GATING = True
 DF_MIN_CONF = 0.8
 
-BOT_TOKEN = "8050429062:AAFPLG9NuPnkDjVZyLUeg35Tlg4ArKisLbQ"
-CHAT_ID = "-1002573892631"
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+CHAT_ID = os.environ.get("CHAT_ID")
 
 ACTIVE_FILE = "active_suggestions.csv"
 HISTORY_FILE = "all_history.csv"
 # ----------------------------
 
 def telegram_send(message):
+    if not BOT_TOKEN or not CHAT_ID:
+        print("[!] Telegram BOT_TOKEN or CHAT_ID missing")
+        return
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     try:
         requests.get(url, params={"chat_id":CHAT_ID,"text":message})
-    except: pass
+    except Exception as e:
+        print(f"[!] Telegram send failed: {e}")
 
-# --- Existing functions: get_nifty50_list, pick_atm_strikes, compute_rsi, compute_sma, compute_macd, fetch_history, trend_confirmations ---
-# (Use previous versions from your code with scalar fixes and bias)
+def get_nifty50_list():
+    try:
+        url = "https://archives.nseindia.com/content/indices/ind_nifty50list.csv"
+        df = pd.read_csv(url)
+        return df['Symbol'].astype(str).str.strip().tolist()
+    except:
+        return ["RELIANCE", "TCS", "INFY", "HDFCBANK", "ICICIBANK"]
 
-# Analyze option chain
+def pick_atm_strikes(strikes, spot):
+    nearest = min(strikes, key=lambda x: abs(x - spot))
+    idx = strikes.index(nearest)
+    left = max(0, idx - STRIKES_AROUND_ATM)
+    right = min(len(strikes)-1, idx + STRIKES_AROUND_ATM)
+    return strikes[left:right+1]
+
+def compute_rsi(series, period=14):
+    delta = series.diff().dropna()
+    up = delta.clip(lower=0)
+    down = -1 * delta.clip(upper=0)
+    ma_up = up.ewm(alpha=1/period, adjust=False).mean()
+    ma_down = down.ewm(alpha=1/period, adjust=False).mean()
+    rs = ma_up / (ma_down.replace(0, np.nan))
+    rsi = 100 - (100 / (1 + rs))
+    return rsi
+
+def compute_sma(series, window):
+    return series.rolling(window=window).mean()
+
+def compute_macd(series, fast=12, slow=26, signal=9):
+    ema_fast = series.ewm(span=fast, adjust=False).mean()
+    ema_slow = series.ewm(span=slow, adjust=False).mean()
+    macd = ema_fast - ema_slow
+    macd_signal = macd.ewm(span=signal, adjust=False).mean()
+    return macd, macd_signal
+
+def fetch_history(symbol, days=120):
+    if HAVE_YFINANCE:
+        try:
+            ticker = f"{symbol}.NS"
+            end = datetime.today()
+            start = end - timedelta(days=days+20)
+            kl = yf.download(ticker, start=start, end=end, progress=False)
+            if not kl.empty:
+                return kl[['Close']].copy()
+        except:
+            pass
+    return None
+
+def trend_confirmations(symbol):
+    res = {
+        'price_gt_yesterday': None,
+        'rsi': None, 'rsi_ok': None,
+        'sma20_gt_sma50': None,
+        'macd': None, 'macd_signal': None, 'macd_ok': None,
+        'bias': None
+    }
+    hist = fetch_history(symbol, days=120)
+    if hist is None or hist.empty:
+        return res
+    closes = hist['Close'].dropna()
+    if len(closes) < 60:
+        return res
+
+    yclose = closes.iloc[-2].item()
+    lclose = closes.iloc[-1].item()
+    res['price_gt_yesterday'] = (lclose > yclose)
+    rsi_val = compute_rsi(closes, RSI_PERIOD).iloc[-1].item()
+    res['rsi'] = round(rsi_val, 2)
+    res['rsi_ok'] = rsi_val > RSI_THRESHOLD
+    sma20 = compute_sma(closes, 20).iloc[-1].item()
+    sma50 = compute_sma(closes, 50).iloc[-1].item()
+    res['sma20_gt_sma50'] = sma20 > sma50
+    macd, macd_signal = compute_macd(closes)
+    res['macd'] = macd.iloc[-1].item()
+    res['macd_signal'] = macd_signal.iloc[-1].item()
+    res['macd_ok'] = res['macd'] > res['macd_signal']
+
+    bullish = (res['price_gt_yesterday'] and res['rsi_ok'] and res['sma20_gt_sma50'] and res['macd_ok'])
+    bearish = ((not res['price_gt_yesterday']) and (rsi_val < 100 - RSI_THRESHOLD)
+               and (not res['sma20_gt_sma50']) and (not res['macd_ok']))
+
+    if bullish:
+        res['bias'] = "BULLISH"
+    elif bearish:
+        res['bias'] = "BEARISH"
+    else:
+        res['bias'] = "NEUTRAL"
+
+    return res
+
 def analyze_option_chain(symbol):
     try:
         data = nse_optionchain_scrapper(symbol)
@@ -102,9 +192,10 @@ def analyze_option_chain(symbol):
                                 'rsi':trend['rsi'],'macd':trend['macd'],'macd_signal':trend['macd_signal']})
     return sorted(suggestions,key=lambda x:(x['confidence'],x['oi']),reverse=True)
 
-# --- Check performance ---
 def check_performance():
-    if not os.path.exists(ACTIVE_FILE): return
+    if not os.path.exists(ACTIVE_FILE):
+        print("[i] No active suggestions found.")
+        return
     df=pd.read_csv(ACTIVE_FILE)
     updates=[]
     report=""
@@ -121,33 +212,49 @@ def check_performance():
                 if opt and s==strike: df_opt.append(opt)
             if not df_opt: continue
             current_price = df_opt[0]['lastPrice']
-        except: current_price=None
+        except: 
+            current_price=None
 
         status="OPEN"
         action="HOLD"
         if current_price is not None:
-            if current_price>=row['target']: status="TARGET HIT"; action="EXIT"
-            elif current_price<=row['sl']: status="SL HIT"; action="EXIT"
-        updates.append({'symbol':sym,'type':typ,'strike':strike,'premium':row['premium'],
-                        'target':row['target'],'sl':row['sl'],'current':current_price,
-                        'status':status,'action':action})
-        report+=f"{sym} {typ} {strike} premium:{row['premium']} current:{current_price} status:{status} action:{action}\n"
+            if current_price>=row['target']: 
+                status="TARGET HIT"
+                action="EXIT"
+            elif current_price<=row['sl']: 
+                status="SL HIT"
+                action="EXIT"
+
+        updates.append({
+            'symbol': sym,
+            'type': typ,
+            'strike': strike,
+            'premium': row['premium'],
+            'target': row['target'],
+            'sl': row['sl'],
+            'current': current_price,
+            'status': status,
+            'action': action
+        })
+        report += f"{sym} {typ} {strike} premium:{row['premium']} current:{current_price} status:{status} action:{action}\n"
 
     telegram_send("📊 Performance Update:\n"+report)
-    # append to history
+    
+    # append to history CSV
     if os.path.exists(HISTORY_FILE):
-        hist=pd.read_csv(HISTORY_FILE)
+        hist = pd.read_csv(HISTORY_FILE)
     else:
-        hist=pd.DataFrame()
-    hist=pd.concat([hist,pd.DataFrame(updates)],ignore_index=True)
-    hist.to_csv(HISTORY_FILE,index=False)
+        hist = pd.DataFrame()
+        
+    hist = pd.concat([hist, pd.DataFrame(updates)], ignore_index=True)
+    hist.to_csv(HISTORY_FILE, index=False)
+    print("[i] Performance check completed.")
 
-# --- Main ---
 def main():
-    now=datetime.now()
-    hour=now.hour+5+(now.minute/60)  # rough IST hour
-    # Evening suggestion generation ~ 9 PM IST
-    if 21<=hour<22:
+    mode = os.environ.get("MODE","manual")
+    print(f"[i] Running in MODE={mode}")
+
+    if mode=="suggestions":
         symbols = get_nifty50_list()
         all_suggestions=[]
         for i,sym in enumerate(symbols):
@@ -171,10 +278,13 @@ def main():
         for idx,row in top.iterrows():
             msg+=f"{row['symbol']} {row['type']} {row['strike']} premium:{row['premium']} target:{row['target']} sl:{row['sl']}\n"
         telegram_send(msg)
+        print("[i] Suggestions generated and sent.")
 
-    # Evening performance check ~ 6 PM IST
-    elif 18<=hour<19:
+    elif mode=="performance":
         check_performance()
+
+    else:
+        print("[i] Manual mode: nothing to do.")
 
 if __name__=="__main__":
     main()
