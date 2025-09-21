@@ -193,9 +193,14 @@ def analyze_option_chain(symbol):
     return sorted(suggestions,key=lambda x:(x['confidence'],x['oi']),reverse=True)
 
 def check_performance():
-    if not os.path.exists(ACTIVE_FILE):
+    # Ensure history file exists even if no active suggestions
+    if not os.path.exists(HISTORY_FILE):
+        pd.DataFrame(columns=['symbol', 'type', 'strike', 'premium', 'target', 'sl', 'current', 'status', 'action']).to_csv(HISTORY_FILE, index=False)
+    
+    if not os.path.exists(ACTIVE_FILE) or os.path.getsize(ACTIVE_FILE) == 0:
         print("[i] No active suggestions found.")
         return
+    
     df=pd.read_csv(ACTIVE_FILE)
     updates=[]
     report=""
@@ -238,7 +243,8 @@ def check_performance():
         })
         report += f"{sym} {typ} {strike} premium:{row['premium']} current:{current_price} status:{status} action:{action}\n"
 
-    telegram_send("📊 Performance Update:\n"+report)
+    if report:
+        telegram_send("📊 Performance Update:\n"+report)
     
     # append to history CSV
     if os.path.exists(HISTORY_FILE):
@@ -246,8 +252,10 @@ def check_performance():
     else:
         hist = pd.DataFrame()
         
-    hist = pd.concat([hist, pd.DataFrame(updates)], ignore_index=True)
-    hist.to_csv(HISTORY_FILE, index=False)
+    if updates:
+        hist = pd.concat([hist, pd.DataFrame(updates)], ignore_index=True)
+        hist.to_csv(HISTORY_FILE, index=False)
+    
     print("[i] Performance check completed.")
 
 def main():
@@ -268,6 +276,8 @@ def main():
 
         if not all_suggestions:
             print("[i] No strong suggestions found.")
+            # Create empty active file if no suggestions
+            pd.DataFrame(columns=['symbol', 'strike', 'type', 'expiry', 'premium', 'target', 'sl', 'oi', 'oi_change', 'volume', 'confidence', 'spot', 'rsi', 'macd', 'macd_signal']).to_csv(ACTIVE_FILE, index=False)
             return
 
         df=pd.DataFrame(all_suggestions).sort_values(['confidence','oi'],ascending=False)
