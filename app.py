@@ -207,31 +207,62 @@ def analyze_option_chain(symbol):
     return sorted(suggestions,key=lambda x:(x['confidence'],x['oi']),reverse=True)
 
 def get_current_option_price(symbol, strike, option_type):
-    """Get current price for a specific option"""
+    """Get current price for a specific option with better error handling"""
     try:
+        print(f"[i] Fetching current price for {symbol} {strike} {option_type}")
         data = nse_optionchain_scrapper(symbol)
+        
+        # Convert strike to float for comparison
+        strike_float = float(strike)
+        
         for row in data['records']['data']:
-            if row.get('strikePrice') == strike:
+            row_strike = row.get('strikePrice')
+            if row_strike is None:
+                continue
+                
+            # Compare strikes with tolerance for floating point issues
+            if abs(float(row_strike) - strike_float) < 0.01:
                 option_data = row.get(option_type)
                 if option_data:
-                    return option_data.get('lastPrice', None)
+                    current_price = option_data.get('lastPrice', None)
+                    print(f"[+] Found current price: {current_price}")
+                    return current_price
+        
+        print(f"[!] Could not find option {symbol} {strike} {option_type} in current data")
+        return None
+        
     except Exception as e:
         print(f"[!] Error fetching current price for {symbol} {strike} {option_type}: {e}")
-    return None
+        return None
 
 def check_performance():
+    """Check performance of active suggestions with improved logic"""
+    print("[i] Starting performance check...")
+    
     # Ensure history file exists with proper columns
     history_columns = ['timestamp', 'symbol', 'type', 'strike', 'premium', 'target', 'sl', 'current', 'status', 'action']
     if not os.path.exists(HISTORY_FILE):
         pd.DataFrame(columns=history_columns).to_csv(HISTORY_FILE, index=False)
         print("[i] Created new history file")
     
-    if not os.path.exists(ACTIVE_FILE) or os.path.getsize(ACTIVE_FILE) == 0:
-        print("[i] No active suggestions found for performance check.")
-        telegram_send("📊 Performance Update: No active suggestions to track.")
+    # Check if active suggestions file exists and has data
+    if not os.path.exists(ACTIVE_FILE):
+        print("[!] Active suggestions file not found")
+        telegram_send("📊 Performance Update: No active suggestions file found.")
         return
     
-    df = pd.read_csv(ACTIVE_FILE)
+    try:
+        df = pd.read_csv(ACTIVE_FILE)
+        if df.empty:
+            print("[!] Active suggestions file is empty")
+            telegram_send("📊 Performance Update: No active suggestions to track.")
+            return
+    except Exception as e:
+        print(f"[!] Error reading active suggestions file: {e}")
+        return
+    
+    print(f"[i] Found {len(df)} active suggestions to check")
+    
     updates = []
     report = "📊 Performance Update:\n\n"
     
@@ -241,23 +272,30 @@ def check_performance():
         strike = row['strike']
         premium = row['premium']
         
-        print(f"[i] Checking performance for {symbol} {option_type} {strike}")
+        print(f"[i] Checking {symbol} {option_type} {strike}...")
         
+        # Get current price
         current_price = get_current_option_price(symbol, strike, option_type)
         
         status = "OPEN"
         action = "HOLD"
         
         if current_price is not None:
-            if current_price >= row['target']: 
-                status = "TARGET HIT"
+            # Convert to float for comparison
+            current_price_float = float(current_price)
+            target_float = float(row['target'])
+            sl_float = float(row['sl'])
+            premium_float = float(premium)
+            
+            if current_price_float >= target_float: 
+                status = "TARGET HIT 🎯"
                 action = "EXIT ✅"
-            elif current_price <= row['sl']: 
-                status = "SL HIT"
+            elif current_price_float <= sl_float: 
+                status = "SL HIT ⚠️"
                 action = "EXIT ❌"
             else:
                 # Calculate percentage change
-                pct_change = ((current_price - premium) / premium) * 100
+                pct_change = ((current_price_float - premium_float) / premium_float) * 100
                 status = f"OPEN ({pct_change:+.1f}%)"
         else:
             status = "PRICE UNAVAILABLE"
@@ -285,23 +323,26 @@ def check_performance():
         report += f"  Status: {status} | Action: {action}\n\n"
 
     # Send performance report
-    telegram_send(report)
+    if updates:
+        telegram_send(report)
+        print("[i] Performance report sent via Telegram")
+    else:
+        print("[!] No updates to report")
     
     # Update history file
     if updates:
-        hist = pd.read_csv(HISTORY_FILE)
-        new_records = pd.DataFrame(updates)
-        
-        # Ensure all columns exist
-        for col in history_columns:
-            if col not in hist.columns:
-                hist[col] = None
-            if col not in new_records.columns:
-                new_records[col] = None
-        
-        hist = pd.concat([hist, new_records], ignore_index=True)
-        hist.to_csv(HISTORY_FILE, index=False)
-        print(f"[i] Updated history with {len(updates)} records")
+        try:
+            if os.path.exists(HISTORY_FILE):
+                hist = pd.read_csv(HISTORY_FILE)
+            else:
+                hist = pd.DataFrame(columns=history_columns)
+            
+            new_records = pd.DataFrame(updates)
+            hist = pd.concat([hist, new_records], ignore_index=True)
+            hist.to_csv(HISTORY_FILE, index=False)
+            print(f"[i] Updated history with {len(updates)} records")
+        except Exception as e:
+            print(f"[!] Error updating history file: {e}")
     else:
         print("[i] No updates to save")
     
