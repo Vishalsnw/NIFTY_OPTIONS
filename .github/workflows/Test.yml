@@ -1,20 +1,13 @@
-name: Test Options Bot
+name: Performance Check Only
 
 on:
   workflow_dispatch:
-    inputs:
-      mode:
-        description: 'Run mode'
-        required: true
-        default: 'suggestions'
-        type: choice
-        options:
-        - suggestions
-        - performance
-        - manual
+  schedule:
+    # 6 PM IST → 12:30 UTC → performance check
+    - cron: '30 12 * * *'
 
 jobs:
-  test-bot:
+  performance-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,77 +23,65 @@ jobs:
           pip install --upgrade pip
           pip install nsepython pandas numpy yfinance requests
 
-      - name: Create test CSV files with headers
+      - name: Check if active suggestions file exists
         run: |
-          echo "Creating test CSV files..."
-          # Create active_suggestions.csv with sample data for testing performance mode
-          if [ "${{ github.event.inputs.mode }}" == "performance" ]; then
-            cat > active_suggestions.csv << EOF
-symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,macd,macd_signal
-RELIANCE,3000,CE,2024-06-27,50,80,30,10000,500,2000,0.85,3050,65,2.5,2.1
-TCS,4000,PE,2024-06-27,45,72,27,15000,800,3000,0.82,3950,35,-1.2,-0.8
-INFY,1800,CE,2024-06-27,35,56,21,12000,600,2500,0.78,1820,60,1.8,1.5
-EOF
-            echo "Created sample active_suggestions.csv for testing"
-          else
-            # Create empty files with headers
+          if [ ! -f active_suggestions.csv ]; then
+            echo "⚠️ active_suggestions.csv not found - creating empty file"
             echo "symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,macd,macd_signal" > active_suggestions.csv
+          else
+            echo "✅ active_suggestions.csv exists"
+            echo "=== Current active suggestions ==="
+            cat active_suggestions.csv
+          fi
+          
+          if [ ! -f all_history.csv ]; then
+            echo "⚠️ all_history.csv not found - creating empty file"
             echo "timestamp,symbol,type,strike,premium,target,sl,current,status,action" > all_history.csv
+          else
+            echo "✅ all_history.csv exists"
+            echo "=== History file line count ==="
+            wc -l all_history.csv
           fi
 
-      - name: Display files before running
-        run: |
-          echo "=== Files before execution ==="
-          ls -la *.csv
-          echo ""
-          echo "=== Active suggestions content ==="
-          cat active_suggestions.csv
-          echo ""
-          echo "=== History content ==="
-          cat all_history.csv
-
-      - name: Run app.py
+      - name: Run performance check
         run: python app.py
         env:
-          MODE: ${{ github.event.inputs.mode }}
+          MODE: performance
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
 
-      - name: Display files after running
+      - name: Display results
         run: |
-          echo "=== Files after execution ==="
-          ls -la *.csv
+          echo "=== Performance check completed ==="
           echo ""
-          echo "=== Active suggestions content ==="
+          echo "=== Active suggestions after check ==="
           cat active_suggestions.csv
           echo ""
-          echo "=== History content ==="
-          cat all_history.csv
+          echo "=== History file after check ==="
+          tail -10 all_history.csv
           echo ""
-          echo "=== Line counts ==="
-          wc -l *.csv
+          echo "=== File sizes ==="
+          ls -la *.csv
 
-      - name: Debug - Show Python script output
-        run: |
-          echo "=== Last 50 lines of Python output ==="
-          tail -50 /home/runner/work/_temp/*.log || echo "No log files found"
-
-      - name: Commit and push results
+      - name: Commit performance results
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add *.csv
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Test results: ${{ github.event.inputs.mode }} mode"
+          
+          # Check if history file has new entries
+          if git diff --name-only HEAD | grep -q "all_history.csv"; then
+            echo "📈 History file has changes - committing"
+            git add all_history.csv active_suggestions.csv
+            git commit -m "Performance update: $(date +'%Y-%m-%d %H:%M UTC')"
             git push origin main
+          else
+            echo "⏭️ No changes to history file, skipping commit"
           fi
 
-      - name: Create test summary
+      - name: Performance check summary
         run: |
-          echo "=== Test Summary ==="
-          echo "Mode: ${{ github.event.inputs.mode }}"
-          echo "Active suggestions file size: $(wc -l < active_suggestions.csv) lines"
-          echo "History file size: $(wc -l < all_history.csv) lines"
-          echo "Test completed at: $(date)"
+          echo "=== PERFORMANCE CHECK SUMMARY ==="
+          echo "Run time: $(date)"
+          echo "Active suggestions: $(wc -l < active_suggestions.csv) lines"
+          echo "History records: $(wc -l < all_history.csv) lines"
+          echo "Status: ✅ Completed"
