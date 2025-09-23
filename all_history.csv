@@ -1,1 +1,4 @@
-symbol,type,strike,premium,target,sl,current,status,action
+symbol,type,strike,premium,target,sl,current,status,action,timestamp
+LT,CE,3650,35.2,56.32,21.12,35.2,OPEN (+0.0%),HOLD,2025-09-23 17:55:17
+SBIN,CE,880,5.1,8.16,3.06,5.1,OPEN (+0.0%),HOLD,2025-09-23 17:55:18
+MARUTI,CE,16200,138.0,220.8,82.8,138.0,OPEN (+0.0%),HOLD,2025-09-23 17:55:19
