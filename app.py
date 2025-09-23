@@ -141,7 +141,8 @@ def analyze_option_chain(symbol):
     try:
         data = nse_optionchain_scrapper(symbol)
         spot = float(data['records']['underlyingValue'])
-    except:
+    except Exception as e:
+        print(f"[!] Error fetching option chain for {symbol}: {e}")
         return []
 
     df = []
@@ -155,29 +156,38 @@ def analyze_option_chain(symbol):
                            'volume':opt.get('totalTradedVolume',0),
                            'expiry':opt.get('expiryDate')})
     df = pd.DataFrame(df)
-    if df.empty: return []
+    if df.empty: 
+        print(f"[!] No option data found for {symbol}")
+        return []
 
     expiry = df['expiry'].value_counts().idxmax()
     df = df[df['expiry']==expiry]
     atm_strikes = pick_atm_strikes(sorted(df['strike'].unique()), spot)
     trend = trend_confirmations(symbol)
-    if trend['bias']=="NEUTRAL": return []
+    
+    if trend['bias'] == "NEUTRAL": 
+        print(f"[!] {symbol} has neutral trend bias, skipping")
+        return []
 
     suggestions=[]
     for strike in atm_strikes:
         for t in ['CE','PE']:
             row=df[(df['strike']==strike)&(df['type']==t)]
-            if row.empty: continue
+            if row.empty: 
+                continue
             row=row.iloc[0]
-            if row['oi']<MIN_OI or row['volume']<MIN_VOL or row['lastPrice']<=0: continue
+            if row['oi']<MIN_OI or row['volume']<MIN_VOL or row['lastPrice']<=0: 
+                continue
 
             premium=row['lastPrice']
             target=round(premium*TARGET_MULTIPLIER,2)
             sl=round(premium*SL_MULTIPLIER,2)
 
             if STRICT_TREND_GATING:
-                if trend['bias']=="BULLISH" and t!="CE": continue
-                if trend['bias']=="BEARISH" and t!="PE": continue
+                if trend['bias']=="BULLISH" and t!="CE": 
+                    continue
+                if trend['bias']=="BEARISH" and t!="PE": 
+                    continue
 
             conf=0.6
             if row['oi']>=MIN_OI: conf+=0.1
@@ -185,116 +195,187 @@ def analyze_option_chain(symbol):
             if row['volume']>2*MIN_VOL: conf+=0.05
             confidence=round(min(1.0,conf),2)
 
-            suggestions.append({'symbol':symbol,'strike':strike,'type':t,'expiry':row['expiry'],
-                                'premium':premium,'target':target,'sl':sl,'oi':row['oi'],
-                                'oi_change':row['oi_change'],'volume':row['volume'],
-                                'confidence':confidence,'spot':spot,
-                                'rsi':trend['rsi'],'macd':trend['macd'],'macd_signal':trend['macd_signal']})
+            suggestions.append({
+                'symbol':symbol,'strike':strike,'type':t,'expiry':row['expiry'],
+                'premium':premium,'target':target,'sl':sl,'oi':row['oi'],
+                'oi_change':row['oi_change'],'volume':row['volume'],
+                'confidence':confidence,'spot':spot,
+                'rsi':trend['rsi'],'macd':trend['macd'],'macd_signal':trend['macd_signal']
+            })
+    
+    print(f"[i] Found {len(suggestions)} suggestions for {symbol}")
     return sorted(suggestions,key=lambda x:(x['confidence'],x['oi']),reverse=True)
 
+def get_current_option_price(symbol, strike, option_type):
+    """Get current price for a specific option"""
+    try:
+        data = nse_optionchain_scrapper(symbol)
+        for row in data['records']['data']:
+            if row.get('strikePrice') == strike:
+                option_data = row.get(option_type)
+                if option_data:
+                    return option_data.get('lastPrice', None)
+    except Exception as e:
+        print(f"[!] Error fetching current price for {symbol} {strike} {option_type}: {e}")
+    return None
+
 def check_performance():
-    # Ensure history file exists even if no active suggestions
+    # Ensure history file exists with proper columns
+    history_columns = ['timestamp', 'symbol', 'type', 'strike', 'premium', 'target', 'sl', 'current', 'status', 'action']
     if not os.path.exists(HISTORY_FILE):
-        pd.DataFrame(columns=['symbol', 'type', 'strike', 'premium', 'target', 'sl', 'current', 'status', 'action']).to_csv(HISTORY_FILE, index=False)
+        pd.DataFrame(columns=history_columns).to_csv(HISTORY_FILE, index=False)
+        print("[i] Created new history file")
     
     if not os.path.exists(ACTIVE_FILE) or os.path.getsize(ACTIVE_FILE) == 0:
-        print("[i] No active suggestions found.")
+        print("[i] No active suggestions found for performance check.")
+        telegram_send("📊 Performance Update: No active suggestions to track.")
         return
     
-    df=pd.read_csv(ACTIVE_FILE)
-    updates=[]
-    report=""
-    for idx,row in df.iterrows():
-        sym=row['symbol']
-        typ=row['type']
-        strike=row['strike']
-        try:
-            data = nse_optionchain_scrapper(sym)
-            df_opt=[]
-            for r in data['records']['data']:
-                s=r.get('strikePrice')
-                opt=r.get(typ)
-                if opt and s==strike: df_opt.append(opt)
-            if not df_opt: continue
-            current_price = df_opt[0]['lastPrice']
-        except: 
-            current_price=None
-
-        status="OPEN"
-        action="HOLD"
+    df = pd.read_csv(ACTIVE_FILE)
+    updates = []
+    report = "📊 Performance Update:\n\n"
+    
+    for idx, row in df.iterrows():
+        symbol = row['symbol']
+        option_type = row['type']
+        strike = row['strike']
+        premium = row['premium']
+        
+        print(f"[i] Checking performance for {symbol} {option_type} {strike}")
+        
+        current_price = get_current_option_price(symbol, strike, option_type)
+        
+        status = "OPEN"
+        action = "HOLD"
+        
         if current_price is not None:
-            if current_price>=row['target']: 
-                status="TARGET HIT"
-                action="EXIT"
-            elif current_price<=row['sl']: 
-                status="SL HIT"
-                action="EXIT"
+            if current_price >= row['target']: 
+                status = "TARGET HIT"
+                action = "EXIT ✅"
+            elif current_price <= row['sl']: 
+                status = "SL HIT"
+                action = "EXIT ❌"
+            else:
+                # Calculate percentage change
+                pct_change = ((current_price - premium) / premium) * 100
+                status = f"OPEN ({pct_change:+.1f}%)"
+        else:
+            status = "PRICE UNAVAILABLE"
+            current_price = "N/A"
 
-        updates.append({
-            'symbol': sym,
-            'type': typ,
+        # Create update record
+        update_record = {
+            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'symbol': symbol,
+            'type': option_type,
             'strike': strike,
-            'premium': row['premium'],
+            'premium': premium,
             'target': row['target'],
             'sl': row['sl'],
             'current': current_price,
             'status': status,
             'action': action
-        })
-        report += f"{sym} {typ} {strike} premium:{row['premium']} current:{current_price} status:{status} action:{action}\n"
-
-    if report:
-        telegram_send("📊 Performance Update:\n"+report)
-    
-    # append to history CSV
-    if os.path.exists(HISTORY_FILE):
-        hist = pd.read_csv(HISTORY_FILE)
-    else:
-        hist = pd.DataFrame()
+        }
+        updates.append(update_record)
         
+        # Add to report
+        report += f"• {symbol} {option_type} {strike}\n"
+        report += f"  Premium: {premium} | Current: {current_price}\n"
+        report += f"  Target: {row['target']} | SL: {row['sl']}\n"
+        report += f"  Status: {status} | Action: {action}\n\n"
+
+    # Send performance report
+    telegram_send(report)
+    
+    # Update history file
     if updates:
-        hist = pd.concat([hist, pd.DataFrame(updates)], ignore_index=True)
+        hist = pd.read_csv(HISTORY_FILE)
+        new_records = pd.DataFrame(updates)
+        
+        # Ensure all columns exist
+        for col in history_columns:
+            if col not in hist.columns:
+                hist[col] = None
+            if col not in new_records.columns:
+                new_records[col] = None
+        
+        hist = pd.concat([hist, new_records], ignore_index=True)
         hist.to_csv(HISTORY_FILE, index=False)
+        print(f"[i] Updated history with {len(updates)} records")
+    else:
+        print("[i] No updates to save")
     
     print("[i] Performance check completed.")
 
 def main():
-    mode = os.environ.get("MODE","manual")
+    mode = os.environ.get("MODE", "manual")
     print(f"[i] Running in MODE={mode}")
 
-    if mode=="suggestions":
+    if mode == "suggestions":
+        print("[i] Starting suggestions generation...")
         symbols = get_nifty50_list()
-        all_suggestions=[]
-        for i,sym in enumerate(symbols):
-            print(f"[i] {i+1}/{len(symbols)} {sym}")
+        all_suggestions = []
+        
+        print(f"[i] Analyzing {len(symbols)} symbols...")
+        
+        for i, sym in enumerate(symbols):
+            print(f"[i] {i+1}/{len(symbols)} Analyzing {sym}")
             try:
-                sgs=analyze_option_chain(sym)
-                if sgs: all_suggestions.extend(sgs)
-            except:
+                suggestions = analyze_option_chain(sym)
+                if suggestions: 
+                    all_suggestions.extend(suggestions)
+                    print(f"[+] Found {len(suggestions)} suggestions for {sym}")
+            except Exception as e:
+                print(f"[!] Error analyzing {sym}: {e}")
                 traceback.print_exc()
+            
             time.sleep(REQUEST_DELAY)
 
         if not all_suggestions:
-            print("[i] No strong suggestions found.")
-            # Create empty active file if no suggestions
-            pd.DataFrame(columns=['symbol', 'strike', 'type', 'expiry', 'premium', 'target', 'sl', 'oi', 'oi_change', 'volume', 'confidence', 'spot', 'rsi', 'macd', 'macd_signal']).to_csv(ACTIVE_FILE, index=False)
+            print("[!] No suggestions found for any symbol")
+            # Create empty file with proper columns
+            columns = ['symbol', 'strike', 'type', 'expiry', 'premium', 'target', 'sl', 
+                      'oi', 'oi_change', 'volume', 'confidence', 'spot', 'rsi', 'macd', 'macd_signal']
+            pd.DataFrame(columns=columns).to_csv(ACTIVE_FILE, index=False)
+            telegram_send("❌ No trading suggestions found today. Market conditions may not be favorable.")
             return
 
-        df=pd.DataFrame(all_suggestions).sort_values(['confidence','oi'],ascending=False)
-        top=df[df['confidence']>=DF_MIN_CONF].head(5)
-        if top.empty: top=df.head(3)
-        top.to_csv(ACTIVE_FILE,index=False)
-        msg="💡 New Suggestions:\n"
-        for idx,row in top.iterrows():
-            msg+=f"{row['symbol']} {row['type']} {row['strike']} premium:{row['premium']} target:{row['target']} sl:{row['sl']}\n"
+        # Create DataFrame and sort
+        df = pd.DataFrame(all_suggestions)
+        print(f"[i] Total suggestions found: {len(df)}")
+        
+        # Sort by confidence and OI
+        df = df.sort_values(['confidence', 'oi'], ascending=[False, False])
+        
+        # Filter by minimum confidence
+        top = df[df['confidence'] >= DF_MIN_CONF].head(5)
+        if top.empty: 
+            top = df.head(3)
+            print("[i] No suggestions met minimum confidence, taking top 3")
+        
+        print(f"[i] Selected {len(top)} top suggestions")
+        
+        # Save to file
+        top.to_csv(ACTIVE_FILE, index=False)
+        print("[i] Suggestions saved to active_suggestions.csv")
+        
+        # Send Telegram message
+        msg = "💡 New Trading Suggestions:\n\n"
+        for idx, row in top.iterrows():
+            msg += f"📈 {row['symbol']} {row['type']} {row['strike']}\n"
+            msg += f"   Premium: ₹{row['premium']} | Target: ₹{row['target']} | SL: ₹{row['sl']}\n"
+            msg += f"   Confidence: {row['confidence']} | OI: {row['oi']:,}\n"
+            msg += f"   Expiry: {row['expiry']}\n\n"
+        
         telegram_send(msg)
-        print("[i] Suggestions generated and sent.")
+        print("[i] Suggestions sent via Telegram")
 
-    elif mode=="performance":
+    elif mode == "performance":
+        print("[i] Starting performance check...")
         check_performance()
 
     else:
         print("[i] Manual mode: nothing to do.")
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
