@@ -1,10 +1,20 @@
-name: Test Suggestions Mode
+name: Test Options Bot
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run mode'
+        required: true
+        default: 'suggestions'
+        type: choice
+        options:
+        - suggestions
+        - performance
+        - manual
 
 jobs:
-  test-suggestions:
+  test-bot:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,25 +30,62 @@ jobs:
           pip install --upgrade pip
           pip install nsepython pandas numpy yfinance requests
 
-      - name: Run app.py in suggestions mode
+      - name: Create test CSV files with headers
+        run: |
+          echo "Creating test CSV files..."
+          # Create active_suggestions.csv with sample data for testing performance mode
+          if [ "${{ github.event.inputs.mode }}" == "performance" ]; then
+            cat > active_suggestions.csv << EOF
+symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,macd,macd_signal
+RELIANCE,3000,CE,2024-06-27,50,80,30,10000,500,2000,0.85,3050,65,2.5,2.1
+TCS,4000,PE,2024-06-27,45,72,27,15000,800,3000,0.82,3950,35,-1.2,-0.8
+INFY,1800,CE,2024-06-27,35,56,21,12000,600,2500,0.78,1820,60,1.8,1.5
+EOF
+            echo "Created sample active_suggestions.csv for testing"
+          else
+            # Create empty files with headers
+            echo "symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,macd,macd_signal" > active_suggestions.csv
+            echo "timestamp,symbol,type,strike,premium,target,sl,current,status,action" > all_history.csv
+          fi
+
+      - name: Display files before running
+        run: |
+          echo "=== Files before execution ==="
+          ls -la *.csv
+          echo ""
+          echo "=== Active suggestions content ==="
+          cat active_suggestions.csv
+          echo ""
+          echo "=== History content ==="
+          cat all_history.csv
+
+      - name: Run app.py
         run: python app.py
         env:
-          MODE: suggestions
+          MODE: ${{ github.event.inputs.mode }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
 
-      - name: Display CSV contents
+      - name: Display files after running
         run: |
-          echo "=== Active Suggestions File ==="
+          echo "=== Files after execution ==="
+          ls -la *.csv
+          echo ""
+          echo "=== Active suggestions content ==="
           cat active_suggestions.csv
           echo ""
-          echo "=== History File ==="
+          echo "=== History content ==="
           cat all_history.csv
           echo ""
-          echo "=== File Sizes ==="
-          ls -la *.csv
+          echo "=== Line counts ==="
+          wc -l *.csv
 
-      - name: Commit and push if changes
+      - name: Debug - Show Python script output
+        run: |
+          echo "=== Last 50 lines of Python output ==="
+          tail -50 /home/runner/work/_temp/*.log || echo "No log files found"
+
+      - name: Commit and push results
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
@@ -46,6 +93,14 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Test suggestions mode results"
+            git commit -m "Test results: ${{ github.event.inputs.mode }} mode"
             git push origin main
           fi
+
+      - name: Create test summary
+        run: |
+          echo "=== Test Summary ==="
+          echo "Mode: ${{ github.event.inputs.mode }}"
+          echo "Active suggestions file size: $(wc -l < active_suggestions.csv) lines"
+          echo "History file size: $(wc -l < all_history.csv) lines"
+          echo "Test completed at: $(date)"
