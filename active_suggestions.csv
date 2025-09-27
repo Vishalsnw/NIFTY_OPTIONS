@@ -1,1 +1,6 @@
-symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,macd,macd_signal
+symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
+SUNPHARMA,1600.0,CE,30-Sep-2025,6.15,9.84,3.69,4876,1841,40745,0.2558,,0.319,-2.7614,0.419,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1585.0,,NEUTRAL,1.233,1600.0
+LT,3650.0,PE,30-Sep-2025,2.65,4.24,1.59,4203,2423,40290,0.2503,0.08,-0.083,-2.6007,0.4238,0.72,BUY_OPTION,Low IV rank -> buying premium,3743.0,,NEUTRAL,0.611,3650.0
+TATAMOTORS,660.0,PE,30-Sep-2025,3.7,5.92,2.22,3335,682,24419,0.4082,0.122,-0.287,-1.695,0.1693,0.72,BUY_OPTION,Low IV rank -> buying premium,670.75,,NEUTRAL,0.477,690.0
+ONGC,235.0,PE,30-Sep-2025,0.15,0.24,0.09,3259,100,3062,0.1741,0.109,-0.102,-0.1329,0.0315,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,238.78,,NEUTRAL,0.381,235.0
+ONGC,240.0,CE,30-Sep-2025,0.8,1.28,0.48,8203,262,8255,0.1827,0.121,0.365,-0.3175,0.0664,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,238.78,,NEUTRAL,0.381,235.0
