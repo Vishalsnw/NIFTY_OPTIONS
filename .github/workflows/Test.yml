@@ -1,4 +1,4 @@
-name: Options Bot Scheduler
+name: Test
 
 on:
   workflow_dispatch:
