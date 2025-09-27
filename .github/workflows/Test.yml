@@ -1,13 +1,10 @@
-name: Performance Check Only
+name: Options Bot Scheduler
 
 on:
   workflow_dispatch:
-  schedule:
-    # 6 PM IST → 12:30 UTC → performance check
-    - cron: '30 12 * * *'
 
 jobs:
-  performance-check:
+  run-app:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,65 +20,27 @@ jobs:
           pip install --upgrade pip
           pip install nsepython pandas numpy yfinance requests
 
-      - name: Check if active suggestions file exists
+      - name: Create empty CSV files if they don't exist
         run: |
-          if [ ! -f active_suggestions.csv ]; then
-            echo "⚠️ active_suggestions.csv not found - creating empty file"
-            echo "symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,macd,macd_signal" > active_suggestions.csv
-          else
-            echo "✅ active_suggestions.csv exists"
-            echo "=== Current active suggestions ==="
-            cat active_suggestions.csv
-          fi
-          
-          if [ ! -f all_history.csv ]; then
-            echo "⚠️ all_history.csv not found - creating empty file"
-            echo "timestamp,symbol,type,strike,premium,target,sl,current,status,action" > all_history.csv
-          else
-            echo "✅ all_history.csv exists"
-            echo "=== History file line count ==="
-            wc -l all_history.csv
-          fi
+          touch active_suggestions.csv
+          touch all_history.csv
 
-      - name: Run performance check
+      - name: Run app.py in suggestions mode
         run: python app.py
         env:
-          MODE: performance
+          MODE: suggestions
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
 
-      - name: Display results
-        run: |
-          echo "=== Performance check completed ==="
-          echo ""
-          echo "=== Active suggestions after check ==="
-          cat active_suggestions.csv
-          echo ""
-          echo "=== History file after check ==="
-          tail -10 all_history.csv
-          echo ""
-          echo "=== File sizes ==="
-          ls -la *.csv
-
-      - name: Commit performance results
+      - name: Commit and push CSVs
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          
-          # Check if history file has new entries
-          if git diff --name-only HEAD | grep -q "all_history.csv"; then
-            echo "📈 History file has changes - committing"
-            git add all_history.csv active_suggestions.csv
-            git commit -m "Performance update: $(date +'%Y-%m-%d %H:%M UTC')"
+          # Check if files exist and have content before adding
+          if [ -s active_suggestions.csv ] || [ -s all_history.csv ]; then
+            git add active_suggestions.csv all_history.csv
+            git commit -m "Update CSVs from workflow"
             git push origin main
           else
-            echo "⏭️ No changes to history file, skipping commit"
+            echo "No changes to CSV files, skipping commit"
           fi
-
-      - name: Performance check summary
-        run: |
-          echo "=== PERFORMANCE CHECK SUMMARY ==="
-          echo "Run time: $(date)"
-          echo "Active suggestions: $(wc -l < active_suggestions.csv) lines"
-          echo "History records: $(wc -l < all_history.csv) lines"
-          echo "Status: ✅ Completed"
