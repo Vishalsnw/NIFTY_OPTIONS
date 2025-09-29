@@ -53,11 +53,11 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          # Check if files exist and have content before adding
-          if [ -s active_suggestions.csv ] || [ -s all_history.csv ]; then
-            git add active_suggestions.csv all_history.csv
-            git commit -m "Update CSVs from workflow"
-            git push origin main
-          else
+          # Check if there are any changes to commit
+          git add active_suggestions.csv all_history.csv
+          if git diff --staged --quiet; then
             echo "No changes to CSV files, skipping commit"
+          else
+            git commit -m "Update CSVs from workflow [$(date +'%Y-%m-%d %H:%M')]"
+            git push origin main
           fi
