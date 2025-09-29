@@ -28,7 +28,7 @@ jobs:
       - name: Run app.py in suggestions mode
         run: python app.py
         env:
-          MODE: suggestions
+          MODE: performance
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
 
