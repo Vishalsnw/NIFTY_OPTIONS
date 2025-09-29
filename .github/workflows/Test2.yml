@@ -1,0 +1,88 @@
+name: Fetch Option Prices
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install nsepython pandas numpy yfinance requests
+
+      - name: Fetch current option prices
+        run: |
+          python -c "
+import pandas as pd
+import os
+from datetime import datetime
+from app import get_current_option_price, telegram_send
+
+print('[i] Starting option price fetch...')
+
+if not os.path.exists('active_suggestions.csv'):
+    print('[!] No active suggestions file found')
+    telegram_send('❌ No active suggestions file found for price check.')
+    exit()
+
+try:
+    df = pd.read_csv('active_suggestions.csv')
+    if df.empty:
+        print('[!] Active suggestions file is empty')
+        telegram_send('❌ No active suggestions to check.')
+        exit()
+except Exception as e:
+    print(f'[!] Error reading active suggestions: {e}')
+    exit()
+
+print(f'[i] Found {len(df)} options to check')
+
+report = '📊 Current Option Prices:\\n\\n'
+any_price_found = False
+
+for idx, row in df.iterrows():
+    symbol = row['symbol']
+    option_type = row['type']
+    strike = row['strike']
+    original_premium = row['premium']
+    
+    print(f'[i] Fetching price for {symbol} {option_type} {strike}')
+    current_price = get_current_option_price(symbol, strike, option_type)
+    
+    if current_price is not None:
+        any_price_found = True
+        pct_change = ((current_price - original_premium) / original_premium) * 100
+        status = '🎯 TARGET' if current_price >= row['target'] else '⚠️ SL' if current_price <= row['sl'] else '📈 OPEN'
+        
+        report += f'• {symbol} {option_type} {strike}\\n'
+        report += f'  Original: ₹{original_premium} | Current: ₹{current_price}\\n'
+        report += f'  Change: {pct_change:+.1f}%\\n'
+        report += f'  Target: ₹{row[\"target\"]} | SL: ₹{row[\"sl\"]}\\n'
+        report += f'  Status: {status}\\n\\n'
+    else:
+        report += f'• {symbol} {option_type} {strike}\\n'
+        report += f'  Original: ₹{original_premium} | Current: ❌ Unavailable\\n'
+        report += f'  Target: ₹{row[\"target\"]} | SL: ₹{row[\"sl\"]}\\n'
+        report += f'  Status: 🔄 Price Fetch Failed\\n\\n'
+
+if any_price_found:
+    telegram_send(report)
+    print('[i] Price report sent via Telegram')
+else:
+    telegram_send('❌ Could not fetch any option prices. Market may be closed or data unavailable.')
+    print('[!] No prices could be fetched')
+"
+
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
