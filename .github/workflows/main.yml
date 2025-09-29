@@ -4,8 +4,8 @@ on:
   schedule:
     # 9 PM IST → 15:30 UTC → generate suggestions
     - cron: '30 15 * * *'
-    # 6 PM IST → 12:30 UTC → performance check
-    - cron: '30 12 * * *'
+    # 10 PM IST → 16:30 UTC → performance check (after market, when data might be available)
+    - cron: '30 16 * * *'
   workflow_dispatch:
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
           CURRENT_HOUR_UTC=$(date -u +'%H')
           if [ "$CURRENT_HOUR_UTC" -eq 15 ]; then
             echo "mode=suggestions" >> $GITHUB_OUTPUT
-          elif [ "$CURRENT_HOUR_UTC" -eq 12 ]; then
+          elif [ "$CURRENT_HOUR_UTC" -eq 16 ]; then
             echo "mode=performance" >> $GITHUB_OUTPUT
           else
             echo "mode=manual" >> $GITHUB_OUTPUT
@@ -53,7 +53,6 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          # Check if there are any changes to commit
           git add active_suggestions.csv all_history.csv
           if git diff --staged --quiet; then
             echo "No changes to CSV files, skipping commit"
