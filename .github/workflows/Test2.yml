@@ -1,6 +1,9 @@
 name: Test2
 
 on:
+  schedule:
+    # Run daily at 6 PM IST (12:30 UTC)
+    - cron: '30 12 * * *'
   workflow_dispatch:
 
 jobs:
