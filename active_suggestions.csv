@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-SBIN,860.0,PE,30-Sep-2025,0.7,1.12,0.42,3122,308,23567,0.2138,0.271,-0.14,-1.0652,0.1015,0.72,BUY_OPTION,Low IV rank -> buying premium,870.25,,NEUTRAL,0.804,840.0
-INFY,1440.0,PE,30-Sep-2025,4.05,6.48,2.43,4327,-419,8497,0.2615,0.278,-0.314,-3.4431,0.2691,0.67,BUY_OPTION,Low IV rank -> buying premium,1449.2,,NEUTRAL,0.545,1480.0
-LT,3600.0,PE,30-Sep-2025,0.7,1.12,0.42,3848,-13,11406,0.2957,0.316,-0.031,-1.9951,0.1362,0.67,BUY_OPTION,Low IV rank -> buying premium,3704.3,,NEUTRAL,0.57,3600.0
-LT,3650.0,PE,30-Sep-2025,2.1,3.36,1.26,3671,-532,37380,0.2247,0.217,-0.101,-3.7915,0.343,0.67,BUY_OPTION,Low IV rank -> buying premium,3704.3,,NEUTRAL,0.57,3600.0
-LT,3750.0,CE,30-Sep-2025,2.7,4.32,1.62,3454,582,41592,0.2074,0.193,0.134,-4.4203,0.4184,0.67,BUY_OPTION,Low IV rank -> buying premium,3704.3,,NEUTRAL,0.57,3600.0
+ONGC,240.0,CE,30-Sep-2025,0.05,0.08,0.03,4122,-78,5372,0.0376,,0.192,-0.072,0.0343,0.62,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,239.55,,NEUTRAL,0.47,235.0
+TATAMOTORS,700.0,CE,30-Sep-2025,0.05,0.08,0.03,3781,-3193,11562,0.226,0.267,0.017,-0.1742,0.0152,0.62,BUY_OPTION,Low IV rank -> buying premium,682.55,,NEUTRAL,0.439,700.0
+ONGC,235.0,PE,30-Sep-2025,0.05,0.08,0.03,3088,-134,261,0.2179,0.214,-0.044,-0.1264,0.0118,0.62,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,239.55,,NEUTRAL,0.47,235.0
+LT,3600.0,CE,30-Sep-2025,48.1,76.96,28.86,5652,-238,684,,,0.878,-6.3545,0.3891,0.55,DEBIT_SPREAD/NEUTRAL_STRATEGY,Neutral trend -> consider spreads; Max pain near spot -> range bound potential,3665.3,,NEUTRAL,0.554,3600.0
+SBIN,870.0,CE,30-Sep-2025,0.8,1.28,0.48,5129,-708,11431,,,0.614,-2.7119,0.175,0.55,DEBIT_SPREAD/NEUTRAL_STRATEGY,Neutral trend -> consider spreads,873.7,,NEUTRAL,0.936,840.0
