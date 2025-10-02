@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-TCS,2900.0,PE,28-Oct-2025,59.0,94.4,35.4,7639,946,8220,0.2328,0.088,-0.427,-1.1519,3.0521,0.72,BUY_OPTION,Low IV rank -> buying premium,2915.1,,NEUTRAL,0.811,3000.0
-TATAMOTORS,700.0,PE,28-Oct-2025,8.9,14.24,5.34,7080,3320,30645,0.2313,0.024,-0.305,-0.2609,0.6708,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,718.0,,NEUTRAL,0.843,710.0
-RELIANCE,1380.0,PE,28-Oct-2025,26.85,42.96,16.11,5590,503,5809,0.1693,0.121,-0.517,-0.3537,1.4573,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1370.0,,NEUTRAL,0.824,1390.0
-INFY,1400.0,PE,28-Oct-2025,22.6,36.16,13.56,4114,513,4477,0.2938,0.298,-0.301,-0.6846,1.3448,0.72,BUY_OPTION,Low IV rank -> buying premium,1447.9,,NEUTRAL,0.899,1480.0
-RELIANCE,1370.0,PE,28-Oct-2025,22.3,35.68,13.38,3440,573,5557,0.1725,0.131,-0.454,-0.3749,1.449,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1370.0,,NEUTRAL,0.824,1390.0
+TCS,2900.0,PE,28-Oct-2025,59.0,94.4,35.4,7639,946,8220,0.2367,0.076,-0.428,-1.2024,2.9941,0.72,BUY_OPTION,Low IV rank -> buying premium,2915.1,,NEUTRAL,0.811,3000.0
+TATAMOTORS,700.0,PE,28-Oct-2025,8.9,14.24,5.34,7080,3320,30645,0.2353,0.026,-0.305,-0.2723,0.6583,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,718.0,,NEUTRAL,0.843,710.0
+RELIANCE,1380.0,PE,28-Oct-2025,26.85,42.96,16.11,5590,503,5809,0.1719,0.136,-0.519,-0.3698,1.4288,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1370.0,,NEUTRAL,0.824,1390.0
+INFY,1400.0,PE,28-Oct-2025,22.6,36.16,13.56,4114,513,4477,0.2991,0.294,-0.301,-0.7139,1.3195,0.72,BUY_OPTION,Low IV rank -> buying premium,1447.9,,NEUTRAL,0.899,1480.0
+RELIANCE,1370.0,PE,28-Oct-2025,22.3,35.68,13.38,3440,573,5557,0.1752,0.146,-0.455,-0.3919,1.4214,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1370.0,,NEUTRAL,0.824,1390.0
