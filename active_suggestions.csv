@@ -1,6 +1,1 @@
-symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-TCS,2900.0,PE,28-Oct-2025,62.9,100.64,37.74,8202,563,6253,0.2359,0.116,-0.455,-1.2228,2.951,0.72,BUY_OPTION,Low IV rank -> buying premium,2903.0,,NEUTRAL,0.778,2980.0
-RELIANCE,1380.0,PE,28-Oct-2025,30.05,48.08,18.03,6079,489,3561,0.1714,0.11,-0.566,-0.3595,1.3757,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1363.3,,NEUTRAL,0.783,1380.0
-RELIANCE,1360.0,PE,28-Oct-2025,20.3,32.48,12.18,4649,1354,7307,0.1754,0.123,-0.435,-0.4021,1.376,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1363.3,,NEUTRAL,0.783,1380.0
-INFY,1400.0,PE,28-Oct-2025,22.3,35.68,13.38,4260,146,2779,0.2967,0.279,-0.305,-0.7264,1.2982,0.72,BUY_OPTION,Low IV rank -> buying premium,1445.5,,NEUTRAL,0.879,1480.0
-TATAMOTORS,720.0,PE,28-Oct-2025,16.8,26.88,10.08,4048,1050,26994,0.2201,0.005,-0.502,-0.2741,0.7323,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,715.85,,NEUTRAL,0.701,720.0
+symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,iv,iv_rank,delta,theta,vega,strategy,reasons,pcr,max_pain
