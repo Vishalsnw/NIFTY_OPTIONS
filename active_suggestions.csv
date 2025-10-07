@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-TATAMOTORS,700.0,PE,28-Oct-2025,7.7,12.32,4.62,7402,645,17959,0.2082,0.016,-0.323,-0.2652,0.6138,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,712.9,,NEUTRAL,0.605,710.0
-RELIANCE,1380.0,PE,28-Oct-2025,23.4,37.44,14.04,6320,241,5135,0.1765,0.267,-0.494,-0.4375,1.3155,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1374.9,,NEUTRAL,0.799,1390.0
-TCS,3000.0,PE,28-Oct-2025,73.5,117.6,44.1,5825,462,4487,0.2541,0.06,-0.491,-1.4761,2.8586,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,2988.0,,NEUTRAL,0.764,3000.0
-RELIANCE,1360.0,PE,28-Oct-2025,15.2,24.32,9.12,4899,250,6687,0.1816,0.28,-0.363,-0.4503,1.237,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1374.9,,NEUTRAL,0.799,1390.0
-RELIANCE,1370.0,PE,28-Oct-2025,18.9,30.24,11.34,4557,560,5835,0.1785,0.272,-0.426,-0.45,1.2932,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1374.9,,NEUTRAL,0.799,1390.0
+RELIANCE,1400.0,PE,28-Oct-2025,28.85,46.16,17.31,7338,735,7284,0.1771,0.086,-0.567,-0.4306,1.2747,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1384.5,,NEUTRAL,0.772,1390.0
+TCS,3000.0,PE,28-Oct-2025,81.95,131.12,49.17,7142,1317,8244,0.2662,0.073,-0.52,-1.5786,2.7747,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,2975.0,,NEUTRAL,0.719,3000.0
+RELIANCE,1380.0,PE,28-Oct-2025,19.4,31.04,11.64,6383,63,10487,0.1835,0.099,-0.431,-0.4828,1.2735,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1384.5,,NEUTRAL,0.772,1390.0
+SBIN,870.0,PE,28-Oct-2025,15.15,24.24,9.09,4467,385,8376,0.1683,0.032,-0.527,-0.2613,0.8051,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,864.15,,NEUTRAL,0.567,870.0
+TATAMOTORS,690.0,PE,28-Oct-2025,6.85,10.96,4.11,4436,1408,14136,0.1744,0.001,-0.349,-0.2225,0.6049,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,698.1,,NEUTRAL,0.502,710.0
