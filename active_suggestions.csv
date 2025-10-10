@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-RELIANCE,1380.0,PE,28-Oct-2025,22.55,36.08,13.53,7166,187,6562,0.1873,0.208,-0.488,-0.5202,1.2189,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1376.5,,NEUTRAL,0.726,1390.0
-INFY,1500.0,PE,28-Oct-2025,35.95,57.52,21.57,5343,829,10998,0.3204,0.105,-0.433,-1.0603,1.3188,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1509.7,,NEUTRAL,0.876,1480.0
-RELIANCE,1370.0,PE,28-Oct-2025,17.85,28.56,10.71,4688,137,5827,0.1872,0.207,-0.418,-0.5231,1.1939,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1376.5,,NEUTRAL,0.726,1390.0
-TCS,3100.0,PE,28-Oct-2025,83.8,134.08,50.28,4594,1103,6378,0.2473,0.082,-0.561,-1.5444,2.6792,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3060.2,,NEUTRAL,0.735,3000.0
-RELIANCE,1360.0,PE,28-Oct-2025,14.1,22.56,8.46,4538,38,5937,0.1893,0.213,-0.353,-0.5149,1.1353,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1376.5,,NEUTRAL,0.726,1390.0
+RELIANCE,1400.0,PE,28-Oct-2025,29.0,46.4,17.4,7862,47,2757,0.1716,0.101,-0.609,-0.4345,1.1442,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1380.9,,NEUTRAL,0.732,1390.0
+INFY,1500.0,PE,28-Oct-2025,34.0,54.4,20.4,5560,217,8450,0.321,0.167,-0.425,-1.0958,1.2786,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1511.9,,NEUTRAL,0.847,1500.0
+RELIANCE,1370.0,PE,28-Oct-2025,14.65,23.44,8.79,4708,20,3505,0.1793,0.119,-0.383,-0.5106,1.1378,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1380.9,,NEUTRAL,0.732,1390.0
+RELIANCE,1360.0,PE,28-Oct-2025,11.15,17.84,6.69,4647,109,4310,0.1804,0.122,-0.315,-0.4881,1.058,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1380.9,,NEUTRAL,0.732,1390.0
+SBIN,870.0,PE,28-Oct-2025,7.4,11.84,4.44,4637,181,16471,0.1743,0.019,-0.332,-0.3046,0.6903,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,881.25,,NEUTRAL,0.676,870.0
