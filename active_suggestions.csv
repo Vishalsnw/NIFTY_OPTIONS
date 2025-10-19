@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-INFY,1420.0,PE,28-Oct-2025,24.1,38.56,14.46,5228,515,22140,0.384,0.331,-0.383,-1.748,0.8637,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
-TATAMOTORS,390.0,PE,28-Oct-2025,5.65,9.04,3.39,3395,250,13781,0.3549,0.281,-0.363,-0.4359,0.2335,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,396.5,,NEUTRAL,0.413,400.0
-TCS,2980.0,PE,28-Oct-2025,44.25,70.8,26.55,3146,9,7147,0.2022,0.034,-0.547,-1.7975,1.8434,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,2963.0,,NEUTRAL,0.562,3000.0
-INFY,1460.0,CE,28-Oct-2025,7.9,12.64,4.74,16875,8909,66892,0.1637,0.055,0.329,-0.8211,0.8187,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
-INFY,1480.0,CE,28-Oct-2025,5.4,8.64,3.24,15645,6276,44921,0.1992,0.099,0.214,-0.7789,0.659,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
+INFY,1420.0,PE,28-Oct-2025,24.1,38.56,14.46,5228,515,22140,0.4062,0.33,-0.384,-1.9735,0.8148,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
+TATAMOTORS,390.0,PE,28-Oct-2025,5.65,9.04,3.39,3395,250,13781,0.3753,0.274,-0.364,-0.4923,0.2204,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,396.5,,NEUTRAL,0.413,400.0
+TCS,2980.0,PE,28-Oct-2025,44.25,70.8,26.55,3146,9,7147,0.2129,0.052,-0.549,-2.0363,1.7366,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,2963.0,,NEUTRAL,0.562,3000.0
+INFY,1460.0,CE,28-Oct-2025,7.9,12.64,4.74,16875,8909,66892,0.1746,0.055,0.328,-0.9172,0.7706,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
+INFY,1480.0,CE,28-Oct-2025,5.4,8.64,3.24,15645,6276,44921,0.212,0.099,0.213,-0.8716,0.6203,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
