@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-INFY,1420.0,PE,28-Oct-2025,24.1,38.56,14.46,5228,515,22140,0.4062,0.33,-0.384,-1.9735,0.8148,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
-TATAMOTORS,390.0,PE,28-Oct-2025,5.65,9.04,3.39,3395,250,13781,0.3753,0.274,-0.364,-0.4923,0.2204,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,396.5,,NEUTRAL,0.413,400.0
-TCS,2980.0,PE,28-Oct-2025,44.25,70.8,26.55,3146,9,7147,0.2129,0.052,-0.549,-2.0363,1.7366,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,2963.0,,NEUTRAL,0.562,3000.0
-INFY,1460.0,CE,28-Oct-2025,7.9,12.64,4.74,16875,8909,66892,0.1746,0.055,0.328,-0.9172,0.7706,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
-INFY,1480.0,CE,28-Oct-2025,5.4,8.64,3.24,15645,6276,44921,0.212,0.099,0.213,-0.8716,0.6203,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1440.9,,NEUTRAL,0.379,1460.0
+TCS,3000.0,PE,28-Oct-2025,23.5,37.6,14.1,7061,6,15703,0.1952,0.109,-0.399,-2.0468,1.6125,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3016.3,,NEUTRAL,0.595,3000.0
+INFY,1420.0,PE,28-Oct-2025,8.0,12.8,4.8,5903,675,13610,0.3004,0.241,-0.223,-1.2436,0.6052,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1462.7,,NEUTRAL,0.404,1460.0
+INFY,1440.0,PE,28-Oct-2025,16.15,25.84,9.69,5608,886,12327,0.3316,0.279,-0.349,-1.6883,0.7493,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1462.7,,NEUTRAL,0.404,1460.0
+ICICIBANK,1400.0,PE,28-Oct-2025,15.7,25.12,9.42,4677,1101,22421,0.1663,0.009,-0.562,-0.772,0.7603,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1393.0,,NEUTRAL,0.543,1400.0
+RELIANCE,1460.0,PE,28-Oct-2025,9.5,15.2,5.7,4213,3728,34710,0.1703,0.017,-0.386,-0.8511,0.7777,0.72,BUY_OPTION,Low IV rank -> buying premium,1467.9,,NEUTRAL,0.824,1420.0
