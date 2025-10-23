@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-SBIN,900.0,PE,28-Oct-2025,4.95,7.92,2.97,4346,195,2126,0.1961,0.195,-0.349,-0.7174,0.3929,0.72,BUY_OPTION,Low IV rank -> buying premium,907.05,,NEUTRAL,0.757,885.0
-TRENT,4700.0,PE,28-Oct-2025,30.55,48.88,18.33,3613,55,667,0.2874,0.275,-0.296,-5.3158,1.9321,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,4779.0,,NEUTRAL,0.457,4800.0
-ICICIBANK,1400.0,CE,28-Oct-2025,5.1,8.16,3.06,9236,631,7928,0.1828,0.019,0.281,-1.0602,0.5454,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1381.3,,NEUTRAL,0.52,1400.0
-TRENT,5000.0,CE,28-Oct-2025,10.05,16.08,6.03,8380,8,1897,0.3152,0.364,0.118,-3.5785,1.1063,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,4779.0,,NEUTRAL,0.457,4800.0
-MARUTI,16500.0,CE,28-Oct-2025,73.6,117.76,44.16,7406,320,4006,0.1777,0.146,0.332,-13.2161,6.9435,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,16335.0,,NEUTRAL,0.534,16200.0
+SBIN,900.0,PE,28-Oct-2025,2.55,4.08,1.53,5124,778,19076,0.1651,0.101,-0.265,-0.6029,0.3116,0.72,BUY_OPTION,Low IV rank -> buying premium,909.1,,NEUTRAL,0.812,890.0
+INFY,1500.0,PE,28-Oct-2025,10.1,16.16,6.06,5024,431,42925,0.3251,0.271,-0.301,-2.1817,0.5558,0.72,BUY_OPTION,Low IV rank -> buying premium,1525.0,,NEUTRAL,0.428,1480.0
+INFY,1480.0,PE,28-Oct-2025,4.6,7.36,2.76,4045,997,28337,0.312,0.254,-0.17,-1.5333,0.4043,0.72,BUY_OPTION,Low IV rank -> buying premium,1525.0,,NEUTRAL,0.428,1480.0
+ONGC,250.0,PE,28-Oct-2025,0.55,0.88,0.33,3876,2772,7697,0.1306,0.004,-0.262,-0.1292,0.0859,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,252.0,,NEUTRAL,0.601,247.5
+BHARTIARTL,1960.0,PE,28-Oct-2025,1.75,2.8,1.05,3476,249,4330,0.1884,0.051,-0.094,-0.7978,0.3521,0.72,BUY_OPTION,Low IV rank -> buying premium,2009.9,,NEUTRAL,0.63,1960.0
