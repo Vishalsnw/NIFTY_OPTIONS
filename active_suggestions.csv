@@ -1,1 +1,4 @@
-symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,confidence,spot,rsi,iv,iv_rank,delta,theta,vega,strategy,reasons,pcr,max_pain
+symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
+MARUTI,16400.0,CE,28-Oct-2025,46.6,74.56,27.96,3307,87,11364,0.2883,0.151,0.301,-43.5448,2.9655,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,16267.0,,NEUTRAL,0.536,16100.0
+MARUTI,16500.0,CE,28-Oct-2025,32.8,52.48,19.68,7025,-34,14185,0.3284,0.225,0.209,-40.7572,2.4484,0.62,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,16267.0,,NEUTRAL,0.536,16100.0
+MARUTI,16200.0,CE,28-Oct-2025,109.95,175.92,65.97,4445,-1137,4328,0.2055,,0.657,-33.8967,3.1301,0.62,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,16267.0,,NEUTRAL,0.536,16100.0
