@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-ADANIENT,2500.0,PE,25-Nov-2025,92.4,147.84,55.44,6619,19,2684,0.3413,0.398,-0.527,-1.6871,2.3578,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,2469.5,,NEUTRAL,0.783,2500.0
-HDFCBANK,1000.0,PE,25-Nov-2025,18.15,29.04,10.89,6061,269,5746,0.1736,0.06,-0.522,-0.304,0.9491,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,993.4,,NEUTRAL,0.783,1000.0
-INFY,1500.0,PE,25-Nov-2025,45.45,72.72,27.27,5955,196,1310,0.2867,0.314,-0.521,-0.8348,1.4201,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1486.0,,NEUTRAL,0.605,1500.0
-TCS,3000.0,PE,25-Nov-2025,41.2,65.92,24.72,5342,359,6575,0.1907,0.109,-0.405,-1.067,2.8074,0.72,BUY_OPTION,Low IV rank -> buying premium,3019.5,,NEUTRAL,0.661,3080.0
-ICICIBANK,1360.0,PE,25-Nov-2025,24.2,38.72,14.52,4025,27,1895,0.1615,0.047,-0.54,-0.37,1.2843,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1349.0,,NEUTRAL,0.552,1370.0
+TCS,3000.0,PE,25-Nov-2025,57.25,91.6,34.35,6101,759,6269,0.2007,0.016,-0.498,-1.1461,2.79,0.72,BUY_OPTION,Low IV rank -> buying premium,2987.7,,NEUTRAL,0.636,3060.0
+SBIN,950.0,PE,25-Nov-2025,13.4,21.44,8.04,4325,1897,27035,0.1913,0.126,-0.419,-0.3495,0.8732,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,954.6,,NEUTRAL,0.68,940.0
+ADANIENT,2400.0,PE,25-Nov-2025,73.45,117.52,44.07,4116,149,7518,0.3455,0.159,-0.468,-1.7326,2.2339,0.72,BUY_OPTION,Low IV rank -> buying premium,2399.9,,NEUTRAL,0.746,2500.0
+INFY,1460.0,PE,25-Nov-2025,33.05,52.88,19.83,3963,406,3681,0.2866,0.287,-0.435,-0.8588,1.3526,0.72,BUY_OPTION,Low IV rank -> buying premium,1468.0,,NEUTRAL,0.577,1500.0
+ICICIBANK,1350.0,PE,25-Nov-2025,25.6,40.96,15.36,3713,216,4068,0.1675,0.045,-0.558,-0.3906,1.2354,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1336.9,,NEUTRAL,0.535,1360.0
