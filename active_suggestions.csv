@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-RELIANCE,1500.0,PE,25-Nov-2025,30.95,49.52,18.57,9383,1004,9213,0.1729,0.027,-0.605,-0.4733,1.2299,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1480.0,,NEUTRAL,0.633,1500.0
-INFY,1460.0,PE,25-Nov-2025,27.75,44.4,16.65,4686,526,6756,0.2991,0.279,-0.395,-0.98,1.2285,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1478.0,,NEUTRAL,0.556,1480.0
-INFY,1440.0,PE,25-Nov-2025,18.8,30.08,11.28,4458,167,4921,0.2868,0.26,-0.31,-0.8705,1.1247,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1478.0,,NEUTRAL,0.556,1480.0
-SBIN,950.0,PE,25-Nov-2025,10.55,16.88,6.33,4453,523,21112,0.1705,0.105,-0.409,-0.3355,0.8004,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,954.8,,NEUTRAL,0.803,945.0
-HINDALCO,800.0,PE,25-Nov-2025,20.1,32.16,12.06,3586,1381,8305,0.2371,0.102,-0.561,-0.3928,0.6726,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,790.5,,NEUTRAL,0.652,800.0
+RELIANCE,1500.0,PE,25-Nov-2025,30.95,49.52,18.57,9383,1004,9213,0.177,0.031,-0.607,-0.5058,1.191,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1480.0,,NEUTRAL,0.633,1500.0
+INFY,1460.0,PE,25-Nov-2025,27.75,44.4,16.65,4686,526,6756,0.3074,0.296,-0.396,-1.0448,1.1924,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1478.0,,NEUTRAL,0.556,1480.0
+INFY,1440.0,PE,25-Nov-2025,18.8,30.08,11.28,4458,167,4921,0.2949,0.276,-0.31,-0.9281,1.092,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1478.0,,NEUTRAL,0.556,1480.0
+SBIN,950.0,PE,25-Nov-2025,10.55,16.88,6.33,4453,523,21112,0.1749,0.125,-0.41,-0.3586,0.7771,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,954.8,,NEUTRAL,0.803,945.0
+HINDALCO,800.0,PE,25-Nov-2025,20.1,32.16,12.06,3586,1381,8305,0.2432,0.107,-0.563,-0.4192,0.6521,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,790.5,,NEUTRAL,0.652,800.0
