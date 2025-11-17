@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-INFY,1500.0,PE,25-Nov-2025,18.45,29.52,11.07,5123,285,23913,0.2494,0.025,-0.437,-1.2576,0.8782,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1505.8,,NEUTRAL,0.595,1500.0
-TMPV,400.0,PE,25-Nov-2025,12.65,20.24,7.59,4620,637,6242,0.3839,,-0.604,-0.4968,0.2241,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,392.9,,,0.517,400.0
-TCS,3100.0,PE,25-Nov-2025,32.95,52.72,19.77,4567,251,10991,0.2208,0.07,-0.431,-2.2725,1.8102,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3112.0,,NEUTRAL,0.712,3100.0
-RELIANCE,1520.0,PE,25-Nov-2025,15.35,24.56,9.21,3715,791,9651,0.1723,0.017,-0.493,-0.8399,0.8965,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1518.2,,NEUTRAL,0.719,1500.0
-HDFCBANK,990.0,PE,25-Nov-2025,10.85,17.36,6.51,3686,143,6447,0.1883,0.066,-0.49,-0.6059,0.5839,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,989.0,,NEUTRAL,0.636,990.0
+INFY,1500.0,PE,25-Nov-2025,16.85,26.96,10.11,5268,145,9267,0.2521,0.091,-0.427,-1.3653,0.8186,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1507.0,,NEUTRAL,0.585,1500.0
+TCS,3100.0,PE,25-Nov-2025,32.05,51.28,19.23,4847,280,6763,0.1975,,-0.478,-2.1635,1.71,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3100.0,,NEUTRAL,0.689,3100.0
+TMPV,370.0,PE,25-Nov-2025,5.35,8.56,3.21,4660,2388,27017,0.3306,0.168,-0.419,-0.4496,0.2016,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,372.65,,,0.36,380.0
+RELIANCE,1520.0,PE,25-Nov-2025,14.85,23.76,8.91,4002,287,9234,0.1756,0.018,-0.498,-0.9249,0.8386,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1518.0,,NEUTRAL,0.703,1500.0
+TRENT,4400.0,PE,25-Nov-2025,61.65,98.64,36.99,3986,372,3382,0.266,0.078,-0.478,-4.2573,2.4277,0.72,BUY_OPTION,Low IV rank -> buying premium,4401.0,,NEUTRAL,0.537,4500.0
