@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-INFY,1500.0,PE,25-Nov-2025,16.85,26.96,10.11,5268,145,9267,0.2521,0.091,-0.427,-1.3653,0.8186,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1507.0,,NEUTRAL,0.585,1500.0
-TCS,3100.0,PE,25-Nov-2025,32.05,51.28,19.23,4847,280,6763,0.1975,,-0.478,-2.1635,1.71,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3100.0,,NEUTRAL,0.689,3100.0
-TMPV,370.0,PE,25-Nov-2025,5.35,8.56,3.21,4660,2388,27017,0.3306,0.168,-0.419,-0.4496,0.2016,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,372.65,,,0.36,380.0
-RELIANCE,1520.0,PE,25-Nov-2025,14.85,23.76,8.91,4002,287,9234,0.1756,0.018,-0.498,-0.9249,0.8386,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1518.0,,NEUTRAL,0.703,1500.0
-TRENT,4400.0,PE,25-Nov-2025,61.65,98.64,36.99,3986,372,3382,0.266,0.078,-0.478,-4.2573,2.4277,0.72,BUY_OPTION,Low IV rank -> buying premium,4401.0,,NEUTRAL,0.537,4500.0
+RELIANCE,1500.0,PE,25-Nov-2025,6.55,10.48,3.93,7554,283,14192,0.1929,0.155,-0.278,-0.9808,0.6541,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1520.0,,NEUTRAL,0.709,1500.0
+RELIANCE,1520.0,PE,25-Nov-2025,13.9,22.24,8.34,4454,452,15411,0.1884,0.147,-0.479,-1.0967,0.7764,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1520.0,,NEUTRAL,0.709,1500.0
+TRENT,4400.0,PE,25-Nov-2025,79.05,126.48,47.43,4108,122,4343,0.2893,,-0.558,-4.9176,2.2112,0.72,BUY_OPTION,Low IV rank -> buying premium,4369.0,,NEUTRAL,0.514,4500.0
+BHARTIARTL,2100.0,PE,25-Nov-2025,5.65,9.04,3.39,3889,1796,18207,0.2005,0.151,-0.185,-1.1616,0.7348,0.72,BUY_OPTION,Low IV rank -> buying premium,2146.1,,NEUTRAL,0.625,2100.0
+TMPV,360.0,PE,25-Nov-2025,1.95,3.12,1.17,3705,64,9278,0.3223,0.246,-0.218,-0.3626,0.1401,0.72,BUY_OPTION,Low IV rank -> buying premium,371.1,,,0.334,380.0
