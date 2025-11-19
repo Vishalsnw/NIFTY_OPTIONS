@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-RELIANCE,1500.0,PE,25-Nov-2025,6.55,10.48,3.93,7554,283,14192,0.1929,0.155,-0.278,-0.9808,0.6541,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1520.0,,NEUTRAL,0.709,1500.0
-RELIANCE,1520.0,PE,25-Nov-2025,13.9,22.24,8.34,4454,452,15411,0.1884,0.147,-0.479,-1.0967,0.7764,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1520.0,,NEUTRAL,0.709,1500.0
-TRENT,4400.0,PE,25-Nov-2025,79.05,126.48,47.43,4108,122,4343,0.2893,,-0.558,-4.9176,2.2112,0.72,BUY_OPTION,Low IV rank -> buying premium,4369.0,,NEUTRAL,0.514,4500.0
-BHARTIARTL,2100.0,PE,25-Nov-2025,5.65,9.04,3.39,3889,1796,18207,0.2005,0.151,-0.185,-1.1616,0.7348,0.72,BUY_OPTION,Low IV rank -> buying premium,2146.1,,NEUTRAL,0.625,2100.0
-TMPV,360.0,PE,25-Nov-2025,1.95,3.12,1.17,3705,64,9278,0.3223,0.246,-0.218,-0.3626,0.1401,0.72,BUY_OPTION,Low IV rank -> buying premium,371.1,,,0.334,380.0
+INFY,1500.0,PE,25-Nov-2025,5.2,8.32,3.12,5992,1207,32138,0.2778,0.055,-0.187,-1.2971,0.4842,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1542.0,,NEUTRAL,0.724,1520.0
+INFY,1520.0,PE,25-Nov-2025,9.8,15.68,5.88,3772,1692,25269,0.2691,0.023,-0.309,-1.6317,0.636,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1542.0,,NEUTRAL,0.724,1520.0
+INFY,1540.0,PE,25-Nov-2025,17.65,28.24,10.59,3679,1948,17418,0.2675,0.017,-0.467,-1.7981,0.7175,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1542.0,,NEUTRAL,0.724,1520.0
+TMPV,350.0,PE,25-Nov-2025,1.5,2.4,0.9,3387,1182,15524,0.3227,0.113,-0.195,-0.3641,0.1165,0.72,BUY_OPTION,Low IV rank -> buying premium,361.0,,,0.314,370.0
+HDFCBANK,990.0,PE,25-Nov-2025,5.15,8.24,3.09,3382,167,11335,0.1647,,-0.381,-0.6677,0.4436,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,994.8,,NEUTRAL,0.63,995.0
