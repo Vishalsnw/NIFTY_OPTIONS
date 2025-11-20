@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-INFY,1500.0,PE,25-Nov-2025,5.2,8.32,3.12,5992,1207,32138,0.2778,0.055,-0.187,-1.2971,0.4842,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1542.0,,NEUTRAL,0.724,1520.0
-INFY,1520.0,PE,25-Nov-2025,9.8,15.68,5.88,3772,1692,25269,0.2691,0.023,-0.309,-1.6317,0.636,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1542.0,,NEUTRAL,0.724,1520.0
-INFY,1540.0,PE,25-Nov-2025,17.65,28.24,10.59,3679,1948,17418,0.2675,0.017,-0.467,-1.7981,0.7175,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1542.0,,NEUTRAL,0.724,1520.0
-TMPV,350.0,PE,25-Nov-2025,1.5,2.4,0.9,3387,1182,15524,0.3227,0.113,-0.195,-0.3641,0.1165,0.72,BUY_OPTION,Low IV rank -> buying premium,361.0,,,0.314,370.0
-HDFCBANK,990.0,PE,25-Nov-2025,5.15,8.24,3.09,3382,167,11335,0.1647,,-0.381,-0.6677,0.4436,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,994.8,,NEUTRAL,0.63,995.0
+RELIANCE,1530.0,PE,25-Nov-2025,3.55,5.68,2.13,3870,3084,29529,0.1689,0.166,-0.223,-0.9647,0.484,0.72,BUY_OPTION,Low IV rank -> buying premium,1549.5,,NEUTRAL,0.756,1510.0
+HDFCBANK,1000.0,PE,25-Nov-2025,2.6,4.16,1.56,3800,175,22524,0.1467,0.02,-0.272,-0.5968,0.3501,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1008.6,,NEUTRAL,0.776,1000.0
+RELIANCE,1540.0,PE,25-Nov-2025,7.2,11.52,4.32,3793,2111,29771,0.1816,0.201,-0.357,-1.2812,0.6049,0.72,BUY_OPTION,Low IV rank -> buying premium,1549.5,,NEUTRAL,0.756,1510.0
+TMPV,350.0,PE,25-Nov-2025,0.85,1.36,0.51,3581,194,8470,0.2717,0.102,-0.157,-0.2975,0.0904,0.72,BUY_OPTION,Low IV rank -> buying premium,359.8,,,0.33,370.0
+ICICIBANK,1380.0,PE,25-Nov-2025,6.8,10.88,4.08,3144,69,9574,0.1417,0.051,-0.441,-0.9099,0.5708,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1382.0,,NEUTRAL,0.597,1380.0
