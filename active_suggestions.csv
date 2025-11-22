@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-RELIANCE,1560.0,CE,25-Nov-2025,3.85,6.16,2.31,6037,1479,68074,0.1729,0.134,0.264,-1.385,0.4576,0.67,BUY_OPTION,Low IV rank -> buying premium,1543.7,,NEUTRAL,0.689,1510.0
-HDFCBANK,1010.0,CE,25-Nov-2025,2.7,4.32,1.62,5350,1122,29946,0.1928,0.038,0.259,-0.9828,0.2928,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,998.0,,NEUTRAL,0.602,1000.0
-RELIANCE,1520.0,PE,25-Nov-2025,1.4,2.24,0.84,5220,-426,14343,0.1559,0.09,-0.128,-0.7276,0.2926,0.67,BUY_OPTION,Low IV rank -> buying premium,1543.7,,NEUTRAL,0.689,1510.0
-SBIN,980.0,CE,25-Nov-2025,1.7,2.72,1.02,4903,380,29081,0.1233,0.048,0.26,-0.6291,0.2861,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,972.45,,NEUTRAL,0.782,960.0
-M&M,3800.0,CE,25-Nov-2025,13.05,20.88,7.83,4507,1206,66587,0.2374,0.14,0.268,-4.5914,1.1191,0.67,BUY_OPTION,Low IV rank -> buying premium,3747.0,,NEUTRAL,0.651,3650.0
+RELIANCE,1560.0,CE,25-Nov-2025,3.85,6.16,2.31,6037,1479,68074,0.2135,0.181,0.262,-2.0541,0.3724,0.67,BUY_OPTION,Low IV rank -> buying premium,1543.7,,NEUTRAL,0.689,1510.0
+HDFCBANK,1010.0,CE,25-Nov-2025,2.7,4.32,1.62,5350,1122,29946,0.2379,0.092,0.257,-1.4593,0.2384,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,998.0,,NEUTRAL,0.602,1000.0
+RELIANCE,1520.0,PE,25-Nov-2025,1.4,2.24,0.84,5220,-426,14343,0.1895,0.127,-0.129,-1.104,0.2399,0.67,BUY_OPTION,Low IV rank -> buying premium,1543.7,,NEUTRAL,0.689,1510.0
+SBIN,980.0,CE,25-Nov-2025,1.7,2.72,1.02,4903,380,29081,0.1527,0.077,0.258,-0.9289,0.2326,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,972.45,,NEUTRAL,0.782,960.0
+M&M,3800.0,CE,25-Nov-2025,13.05,20.88,7.83,4507,1206,66587,0.2926,0.066,0.267,-6.8303,0.9116,0.67,BUY_OPTION,Low IV rank -> buying premium,3747.0,,NEUTRAL,0.651,3650.0
