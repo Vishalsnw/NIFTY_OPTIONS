@@ -1,6 +1,4 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-BHARTIARTL,2100.0,PE,25-Nov-2025,0.05,0.08,0.03,3312,67,3336,0.1695,0.244,-0.008,-0.204,0.0244,0.72,BUY_OPTION,Low IV rank -> buying premium,2145.0,,NEUTRAL,0.637,2100.0
-TCS,3100.0,PE,25-Nov-2025,1.4,2.24,0.84,3150,185,9655,0.1693,0.009,-0.105,-2.4713,0.2983,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3134.0,,NEUTRAL,0.705,3100.0
-SBIN,980.0,CE,25-Nov-2025,0.25,0.4,0.15,5028,125,23992,0.1399,0.17,0.078,-0.5314,0.0742,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,969.7,,NEUTRAL,0.803,960.0
-RELIANCE,1540.0,CE,25-Nov-2025,4.15,6.64,2.49,4932,14,34942,0.1956,0.069,0.381,-3.089,0.3061,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1534.9,,NEUTRAL,0.684,1510.0
-RELIANCE,1520.0,PE,25-Nov-2025,0.65,1.04,0.39,4723,-497,17713,0.1541,,-0.109,-1.1261,0.1497,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1534.9,,NEUTRAL,0.684,1510.0
+RELIANCE,1520.0,PE,25-Nov-2025,0.05,0.08,0.03,4015,-708,6520,0.1167,0.173,-0.015,-0.1739,0.0305,0.67,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1540.0,,NEUTRAL,0.843,1510.0
+RELIANCE,1520.0,CE,25-Nov-2025,15.0,24.0,9.0,6625,-1069,2361,,,0.803,-3.5583,0.2239,0.55,DEBIT_SPREAD/NEUTRAL_STRATEGY,Neutral trend -> consider spreads; Max pain near spot -> range bound potential,1540.0,,NEUTRAL,0.843,1510.0
+TMPV,370.0,CE,25-Nov-2025,0.05,0.08,0.03,4985,-1229,5740,0.4325,0.6,0.017,-0.1733,0.008,0.55,DEBIT_SPREAD/NEUTRAL_STRATEGY,Neutral trend -> consider spreads,352.6,,,0.207,370.0
