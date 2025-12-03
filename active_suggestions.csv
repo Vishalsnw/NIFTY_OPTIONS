@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-SBIN,980.0,PE,30-Dec-2025,18.8,30.08,11.28,5278,613,6422,0.1493,0.051,-0.55,-0.1978,1.0441,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,969.9,,NEUTRAL,0.694,980.0
-TMPV,350.0,PE,30-Dec-2025,4.5,7.2,2.7,4779,18,2332,0.252,0.081,-0.282,-0.1376,0.3323,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,361.65,,,0.558,360.0
-TMPV,340.0,PE,30-Dec-2025,2.3,3.68,1.38,4127,80,1685,0.259,0.099,-0.165,-0.1068,0.244,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,361.65,,,0.558,360.0
-TMPV,370.0,PE,30-Dec-2025,13.75,22.0,8.25,3647,69,966,0.2535,0.085,-0.592,-0.1419,0.382,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,361.65,,,0.558,360.0
-TCS,3100.0,PE,30-Dec-2025,34.0,54.4,20.4,3589,59,2148,0.1656,0.115,-0.349,-0.7829,3.1575,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3137.5,,NEUTRAL,0.872,3180.0
+TMPV,360.0,PE,30-Dec-2025,10.1,16.16,6.06,6348,187,4160,0.2522,0.172,-0.503,-0.1534,0.3806,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,357.5,,,0.533,360.0
+HDFCBANK,1000.0,PE,30-Dec-2025,12.6,20.16,7.56,5637,650,6366,0.1382,0.087,-0.445,-0.205,1.0549,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1000.1,,NEUTRAL,0.627,1000.0
+TMPV,350.0,PE,30-Dec-2025,5.6,8.96,3.36,5007,228,4137,0.2507,0.167,-0.339,-0.1476,0.3494,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,357.5,,,0.533,360.0
+ICICIBANK,1400.0,PE,30-Dec-2025,21.25,34.0,12.75,4914,78,2061,0.1363,0.015,-0.509,-0.2686,1.4818,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1392.0,,NEUTRAL,0.871,1380.0
+TCS,3200.0,PE,30-Dec-2025,57.3,91.68,34.38,4317,115,10255,0.1595,0.132,-0.51,-0.7623,3.3848,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,3180.0,,NEUTRAL,0.866,3200.0
