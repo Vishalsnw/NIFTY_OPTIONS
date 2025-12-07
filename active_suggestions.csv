@@ -1,6 +1,6 @@
 symbol,strike,type,expiry,premium,target,sl,oi,oi_change,volume,iv,iv_rank,delta,theta,vega,confidence,strategy,reasons,spot,rsi,bias,pcr,max_pain
-HDFCBANK,1000.0,PE,30-Dec-2025,10.9,17.44,6.54,7242,1121,15513,0.1324,0.185,-0.434,-0.2113,0.9888,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1001.2,,NEUTRAL,0.642,1000.0
-INFY,1600.0,PE,30-Dec-2025,18.9,30.24,11.34,7079,2176,15852,0.1727,0.022,-0.379,-0.475,1.5412,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1613.9,,NEUTRAL,0.708,1600.0
-TMPV,360.0,PE,30-Dec-2025,11.05,17.68,6.63,6936,226,2997,0.2391,,-0.574,-0.1458,0.3484,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,354.0,,,0.509,360.0
-TMPV,350.0,PE,30-Dec-2025,6.1,9.76,3.66,5532,539,3253,0.2415,0.006,-0.39,-0.1553,0.3409,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,354.0,,,0.509,360.0
-ICICIBANK,1400.0,PE,30-Dec-2025,19.6,31.36,11.76,5352,387,3647,0.1324,0.015,-0.512,-0.2805,1.3938,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1392.5,,NEUTRAL,0.806,1380.0
+HDFCBANK,1000.0,PE,30-Dec-2025,10.9,17.44,6.54,7242,1121,15513,0.1346,0.205,-0.436,-0.2225,0.9678,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1001.2,,NEUTRAL,0.642,1000.0
+INFY,1600.0,PE,30-Dec-2025,18.9,30.24,11.34,7079,2176,15852,0.1759,0.019,-0.38,-0.4991,1.5086,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1613.9,,NEUTRAL,0.708,1600.0
+TMPV,360.0,PE,30-Dec-2025,11.05,17.68,6.63,6936,226,2997,0.2434,0.001,-0.576,-0.153,0.3405,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,354.0,,,0.509,360.0
+TMPV,350.0,PE,30-Dec-2025,6.1,9.76,3.66,5532,539,3253,0.2462,0.007,-0.39,-0.163,0.3336,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,354.0,,,0.509,360.0
+ICICIBANK,1400.0,PE,30-Dec-2025,19.6,31.36,11.76,5352,387,3647,0.1344,0.023,-0.515,-0.2954,1.3629,0.72,BUY_OPTION,Low IV rank -> buying premium; Max pain near spot -> range bound potential,1392.5,,NEUTRAL,0.806,1380.0
